@@ -9,3 +9,9 @@ const SENTENCE =
 
 mkdirSync("/output", { recursive: true });
 writeFileSync("/output/entry.txt", SENTENCE, "utf8");
+
+// The gate requires 1–300 characters of non-whitespace UTF-8 text;
+// refuse to write an entry that could never be judged.
+if (SENTENCE.length < 1 || SENTENCE.length > 300 || !SENTENCE.trim()) {
+  throw new Error(`entry must be 1-300 characters, got ${SENTENCE.length}`);
+}
